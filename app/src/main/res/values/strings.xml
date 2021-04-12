@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Final Project</string>
+    <string name="name_plant">Name your plant:</string>
+    <string name="hint">Addie</string>
+    <string name="start"> Start!</string>
+    <string name="name">Name</string>
+    <string name="sun">Sun:</string>
+    <string name="water">Water:</string>
+    <string name="happiness">Happiness:</string>
+    <string name="health_max"> 30</string>
+    <string name="health_status"> / 30</string>
+
+</resources>
