@@ -7,6 +7,8 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.ArrayList;
+
 public class GameActivity extends AppCompatActivity {
 
     TextView happinessTV;
@@ -17,7 +19,6 @@ public class GameActivity extends AppCompatActivity {
     Plant mPlant;
 
     private HealthAsyncTask mHealthAsyncTask;
-    //private HappinessAsyncTask mHappyAsyncTask;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,26 +34,35 @@ public class GameActivity extends AppCompatActivity {
         plantTV.setText(plantName);
         mPlant = new Plant(plantName);
 
-        mHealthAsyncTask = new HealthAsyncTask();
-        mHealthAsyncTask.execute(mPlant.getHealth());
+       mHealthAsyncTask = new HealthAsyncTask();
+       mHealthAsyncTask.execute();
 
     }
 
-    private class HealthAsyncTask extends AsyncTask<Integer, Integer, Integer> {
-        protected Integer doInBackground(Integer... values) {
+    private class HealthAsyncTask extends AsyncTask<ArrayList <Integer>, ArrayList <Integer>, ArrayList <Integer>> {
+        protected ArrayList <Integer> doInBackground(ArrayList <Integer>... values) {
+            ArrayList <Integer> result = null;
             try {
                while (!mPlant.gameEnded) {
                    Thread.sleep(1000);
                    mPlant.healthDecrease();
-                   publishProgress(mPlant.getHealth());
+                   mPlant.happinessDecrease();
+                   result = new ArrayList<Integer>();
+                   result.add(mPlant.getHealth());
+                   result.add(mPlant.getHappiness());
+                   publishProgress(result);
                }
-            } catch (InterruptedException e) {}
-            return mPlant.getHealth();
+            } catch (InterruptedException e) {
+            }
+            return result;
         }
 
-        protected void onProgressUpdate (Integer... values) {
+        protected void onProgressUpdate (ArrayList <Integer>... values) {
             super.onProgressUpdate(values);
-            healthTV.setText(" " + values[0]);
+            ArrayList<Integer> passing = values[0];
+            healthTV.setText(" " + passing.get(0));
+            happinessTV.setText(" " + passing.get(1));
+
         }
     }
 

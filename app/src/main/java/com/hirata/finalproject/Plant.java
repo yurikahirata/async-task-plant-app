@@ -25,4 +25,15 @@ public class Plant {
         }
     }
 
+    public int getHappiness() {
+        return happiness;
+    }
+
+    public void happinessDecrease() {
+        happiness--;
+        if (happiness <= 0) {
+            gameEnded = true;
+        }
+    }
+
 }
