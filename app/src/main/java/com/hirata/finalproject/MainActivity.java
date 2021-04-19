@@ -25,9 +25,9 @@ public class MainActivity extends AppCompatActivity {
         plantName = nameET.getText().toString();
 
         Intent launchReport = new Intent(this, GameActivity.class); // Creating intent to display Game Activity
-        launchReport.putExtra("plant", plantName); // Adding extra data to Loan Summary Activity
+        launchReport.putExtra("plant", plantName); // Adding extra data to GameActivity
 
-        startActivity(launchReport); // Starting Loan Activity
+        startActivity(launchReport);
 
     }
 }
