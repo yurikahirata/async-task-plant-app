@@ -12,5 +12,7 @@
     <string name="nutrients_btn">Give nutrients</string>
     <string name="compliment_btn">Compliment</string>
     <string name="insult_btn">Insult</string>
+    <string name="game_over">GAME OVER.</string>
+    <string name="try_again">Try again?</string>
 
 </resources>

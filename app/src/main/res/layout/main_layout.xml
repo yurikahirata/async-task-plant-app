@@ -112,7 +112,7 @@
         app:srcCompat="@mipmap/plant" />
 
     <Button
-        android:id="@+id/waterButton2"
+        android:id="@+id/complimentButton"
         android:layout_width="157dp"
         android:layout_height="62dp"
         android:layout_marginStart="32dp"
@@ -140,7 +140,7 @@
         app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
     <Button
-        android:id="@+id/waterButton4"
+        android:id="@+id/insultButton"
         android:layout_width="157dp"
         android:layout_height="62dp"
         android:layout_marginStart="32dp"
@@ -151,12 +151,12 @@
         android:textColor="#020202"
         app:backgroundTint="#F44336"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/waterButton3"
-        app:layout_constraintTop_toBottomOf="@+id/waterButton2"
+        app:layout_constraintStart_toEndOf="@+id/nutrientButton"
+        app:layout_constraintTop_toBottomOf="@+id/complimentButton"
         app:layout_constraintVertical_bias="0.078" />
 
     <Button
-        android:id="@+id/waterButton3"
+        android:id="@+id/nutrientButton"
         android:layout_width="157dp"
         android:layout_height="62dp"
         android:layout_marginStart="32dp"
@@ -176,6 +176,8 @@
         android:layout_width="263dp"
         android:layout_height="65dp"
         android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView5" />
