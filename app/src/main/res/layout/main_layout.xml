@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFFFF"
-    tools:context=".MainActivity">
+    tools:context=".GameActivity">
 
     <TextView
         android:id="@+id/nameText"
@@ -118,7 +118,8 @@
         android:layout_marginStart="32dp"
         android:layout_marginLeft="32dp"
         android:layout_marginTop="24dp"
-        android:onClick="compliment"
+        android:onClick="action"
+        android:tag="compliment"
         android:text="@string/compliment_btn"
         android:textColor="#020202"
         app:backgroundTint="#8BC34A"
@@ -132,7 +133,8 @@
         android:layout_marginStart="32dp"
         android:layout_marginLeft="32dp"
         android:layout_marginTop="24dp"
-        android:onClick="water"
+        android:onClick="action"
+        android:tag="water"
         android:text="@string/water_btn"
         android:textColor="#020202"
         app:backgroundTint="#8BC34A"
@@ -146,7 +148,8 @@
         android:layout_marginStart="32dp"
         android:layout_marginLeft="32dp"
         android:layout_marginTop="20dp"
-        android:onClick="insult"
+        android:onClick="action"
+        android:tag="insult"
         android:text="@string/insult_btn"
         android:textColor="#020202"
         app:backgroundTint="#F44336"
@@ -162,7 +165,8 @@
         android:layout_marginStart="32dp"
         android:layout_marginLeft="32dp"
         android:layout_marginTop="20dp"
-        android:onClick="nutrients"
+        android:onClick="action"
+        android:tag="nutrients"
         android:text="@string/nutrients_btn"
         android:textColor="#020202"
         app:backgroundTint="#8BC34A"
@@ -173,8 +177,8 @@
 
     <TextView
         android:id="@+id/textView2"
-        android:layout_width="263dp"
-        android:layout_height="65dp"
+        android:layout_width="319dp"
+        android:layout_height="66dp"
         android:layout_marginTop="20dp"
         android:gravity="center"
         android:textSize="18sp"

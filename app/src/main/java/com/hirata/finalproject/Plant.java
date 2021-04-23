@@ -18,9 +18,10 @@ public class Plant {
         return health;
     }
 
-    public void healthDecrease(int n) {
-        health=health-n;
-        if (health <= 0) {
+    public void decrease() {
+        health --;
+        happiness--;
+        if (health <=0 || happiness <= 0 ) {
             gameEnded = true;
         }
     }
@@ -29,17 +30,14 @@ public class Plant {
         return happiness;
     }
 
-    public void happinessDecrease(int n) {
-        happiness = happiness-n;
-        if (happiness <= 0) {
-            gameEnded = true;
-        }
-    }
-
     public void addToHealth(int n) {
         if ((health+n) >= 50) {
             health = 50;
-        } else {
+        } else if ((health+n) <= 0) {
+            gameEnded = true;
+            health = 0;
+        }
+        else {
             health = health + n;
         }
     }
@@ -47,7 +45,10 @@ public class Plant {
     public void addToHappiness(int n) {
         if ((happiness+n) >= 50) {
             happiness = 50;
-        } else {
+        } else if ((happiness+n) <= 0) {
+            gameEnded = true;
+            happiness = 0;
+        }else {
             happiness = happiness + n;
         }
     }

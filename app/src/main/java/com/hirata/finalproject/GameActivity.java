@@ -34,8 +34,8 @@ public class GameActivity extends AppCompatActivity {
 
     HealthAsyncTask mHealthAsyncTask;
 
-    String[] compliments = {"You're looking extra green today!", "Good job growing!", "You're my favorite plant!", "You're the best plant I've ever had!", "You're such a good plant!", "I hope you grow strong!"};
-    String[] insults = {"I bet you don't even grow flowers.", "You're an ugly plant.", "I should've bought a different plant.", "My other plants are better.", "You're my least favorite plant.", "You were overpriced."};
+    String[] compliments = {"You're looking extra green today!", "Good job growing!", "You're my favorite plant!", "You're the best plant I've ever had!", "You're such a good plant!", "I hope you grow strong!", "No other plant can compare to you!"};
+    String[] insults = {"I bet you don't even grow flowers.", "You're an ugly plant.", "I should've bought a different plant.", "My other plants are better.", "You're my least favorite plant.", "You were overpriced.", "I don't like you."};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,8 +55,8 @@ public class GameActivity extends AppCompatActivity {
         Intent intent = getIntent();
         plantName = intent.getStringExtra("plant");
         plantTV.setText(plantName);
-        mPlant = new Plant(plantName);
 
+        mPlant = new Plant(plantName);
 
        mHealthAsyncTask = new HealthAsyncTask();
        mHealthAsyncTask.execute();
@@ -67,15 +67,17 @@ public class GameActivity extends AppCompatActivity {
         protected ArrayList <Integer> doInBackground(ArrayList <Integer>... values) {
             ArrayList <Integer> result = null;
             try {
-               while (!mPlant.gameEnded) {
+               while (!mPlant.gameEnded) { // If game is not over, decreasing health and happiness
                    Thread.sleep(1000);
-                   mPlant.healthDecrease(1);
-                   mPlant.happinessDecrease(1);
+                   mPlant.decrease();
                    result = new ArrayList<Integer>();
                    result.add(mPlant.getHealth());
                    result.add(mPlant.getHappiness());
                    publishProgress(result);
                }
+                if (mPlant.gameEnded) {
+                    endGame();
+                }
             } catch (InterruptedException e) {
             }
             return result;
@@ -86,88 +88,47 @@ public class GameActivity extends AppCompatActivity {
             ArrayList<Integer> passing = values[0];
             healthTV.setText(" " + passing.get(0));
             happinessTV.setText(" " + passing.get(1));
-
         }
     }
 
-    public void water (View view) {
-        mPlant.addToHealth(5);
-        healthTV.setText(" " + mPlant.getHealth());
-        new CountDownTimer(2000, 1000) {
+    public void action (View view) {
+        int increaseHealth;
+        int increaseHappiness;
+        int rnd = new Random().nextInt(insults.length);
+        int color;
+        String finalText;
+        String actionTag = view.getTag().toString();
+        switch (actionTag) { // Assigning variables based on tag
+            case "insult":
+                increaseHealth = -7;
+                increaseHappiness = -12;
+                finalText = insults[rnd] + "\n-12 Happiness   -7 Health";
+                color = Color.parseColor("#F44336"); break;
+            case "compliment":
+                increaseHealth = 5;
+                increaseHappiness = 9;
+                finalText  = compliments[rnd] + "\n+9 Happiness   +5 Health";
+                color = Color.parseColor("#8BC34A");break;
+            case "nutrients":
+                increaseHealth = 7;
+                increaseHappiness = 0;
+                finalText = "+7 Health";
+                color = Color.parseColor("#8BC34A");break;
+            default:
+                increaseHealth = 5;
+                increaseHappiness = 0;
+                finalText = "+5 Health";
+                color = Color.parseColor("#8BC34A"); break;
+        }
+
+        mPlant.addToHappiness(increaseHappiness);
+        mPlant.addToHealth(increaseHealth);
+
+        new CountDownTimer(2000, 1000) { // Timer for text to appear
             public void onTick(long millisUntilFinished) {
-                textTV.setTextColor(Color.parseColor("#8BC34A"));
-                textTV.setText("+5");
-                insultBtn.setEnabled(false);
-                complimentBtn.setEnabled(false);
-                nutrientBtn.setEnabled(false);
-            }
-
-            public void onFinish() {
-                textTV.setText(" ");
-                insultBtn.setEnabled(true);
-                complimentBtn.setEnabled(true);
-                nutrientBtn.setEnabled(true);
-            }
-        }.start();
-    }
-
-    public void nutrients (View view) {
-        mPlant.addToHealth(7);
-        healthTV.setText(" " + mPlant.getHealth());
-        new CountDownTimer(2000, 1000) {
-            public void onTick(long millisUntilFinished) {
-                textTV.setTextColor(Color.parseColor("#8BC34A"));
-                textTV.setText("+7");
-                insultBtn.setEnabled(false);
-                complimentBtn.setEnabled(false);
-                waterBtn.setEnabled(false);
-            }
-
-            public void onFinish() {
-                textTV.setText(" ");
-                insultBtn.setEnabled(true);
-                complimentBtn.setEnabled(true);
-                waterBtn.setEnabled(true);
-            }
-        }.start();
-    }
-
-    public void compliment (View view) {
-        mPlant.addToHealth(5);
-        mPlant.addToHappiness(10);
-        healthTV.setText(" " + mPlant.getHealth());
-        happinessTV.setText(" " + mPlant.getHappiness());
-        new CountDownTimer(2000, 1000) {
-            int rnd = new Random().nextInt(compliments.length);
-            public void onTick(long millisUntilFinished) {
-                textTV.setTextColor(Color.parseColor("#8BC34A"));
-                textTV.setText(compliments[rnd] + "\n+10   +5");
-                insultBtn.setEnabled(false);
-                nutrientBtn.setEnabled(false);
-                waterBtn.setEnabled(false);
-            }
-
-            public void onFinish() {
-                textTV.setText(" ");
-                insultBtn.setEnabled(true);
-                nutrientBtn.setEnabled(true);
-                waterBtn.setEnabled(true);
-            }
-        }.start();
-
-
-    }
-
-    public void insult (View view) {
-        mPlant.healthDecrease(7);
-        mPlant.happinessDecrease(12);
-        healthTV.setText(" " + mPlant.getHealth());
-        happinessTV.setText(" " + mPlant.getHappiness());
-        new CountDownTimer(2000, 1000) {
-            int rnd = new Random().nextInt(insults.length);
-            public void onTick(long millisUntilFinished) {
-                textTV.setTextColor(Color.parseColor("#F44336"));
-                textTV.setText(insults[rnd] + "\n-12   -7");
+                textTV.setTextColor(color);
+                textTV.setText(finalText);
+                insultBtn.setEnabled(false); // Disable all buttons while one is clicked
                 complimentBtn.setEnabled(false);
                 nutrientBtn.setEnabled(false);
                 waterBtn.setEnabled(false);
@@ -175,10 +136,18 @@ public class GameActivity extends AppCompatActivity {
 
             public void onFinish() {
                 textTV.setText(" ");
+                insultBtn.setEnabled(true); // Re-enable buttons
                 complimentBtn.setEnabled(true);
                 nutrientBtn.setEnabled(true);
                 waterBtn.setEnabled(true);
             }
         }.start();
+
+    }
+
+    public void endGame() { // If game over return to start page
+        Intent launchReport = new Intent(getApplicationContext(), MainActivity.class);
+        startActivity(launchReport);
     }
 }
+
