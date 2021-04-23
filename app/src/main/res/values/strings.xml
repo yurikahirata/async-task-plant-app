@@ -6,7 +6,11 @@
     <string name="name">Name</string>
     <string name="health">Health:</string>
     <string name="happiness">Happiness:</string>
-    <string name="health_max"> 100</string>
-    <string name="health_status"> / 100</string>
+    <string name="health_max"> 50</string>
+    <string name="health_status"> / 50</string>
+    <string name="water_btn">Water</string>
+    <string name="nutrients_btn">Give nutrients</string>
+    <string name="compliment_btn">Compliment</string>
+    <string name="insult_btn">Insult</string>
 
 </resources>

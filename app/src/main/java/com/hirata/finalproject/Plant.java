@@ -5,12 +5,12 @@ public class Plant {
     public boolean gameEnded;
 
     private int health;
-    public int happiness;
+    private int happiness;
 
     public Plant (String n) {
         name = n;
-        health = 100;
-        happiness = 100;
+        health = 50;
+        happiness = 50;
         gameEnded = false;
     }
 
@@ -18,8 +18,8 @@ public class Plant {
         return health;
     }
 
-    public void healthDecrease() {
-        health--;
+    public void healthDecrease(int n) {
+        health=health-n;
         if (health <= 0) {
             gameEnded = true;
         }
@@ -29,11 +29,26 @@ public class Plant {
         return happiness;
     }
 
-    public void happinessDecrease() {
-        happiness--;
+    public void happinessDecrease(int n) {
+        happiness = happiness-n;
         if (happiness <= 0) {
             gameEnded = true;
         }
     }
 
+    public void addToHealth(int n) {
+        if ((health+n) >= 50) {
+            health = 50;
+        } else {
+            health = health + n;
+        }
+    }
+
+    public void addToHappiness(int n) {
+        if ((happiness+n) >= 50) {
+            happiness = 50;
+        } else {
+            happiness = happiness + n;
+        }
+    }
 }
